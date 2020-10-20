@@ -11,7 +11,6 @@ defusedxml==0.6.0
 entrypoints==0.3
 enum34==1.1.9
 funcsigs==1.0.2
-functools32==3.2.3.post2
 futures==3.3.0
 graphviz==0.13.2
 idna==2.10
