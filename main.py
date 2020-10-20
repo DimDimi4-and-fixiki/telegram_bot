@@ -15,6 +15,7 @@ news_sender = NewsSender()  # NewsSender object
 server = Flask(__name__)
 bot = MyTeleBot(token_path="secure_codes/token.txt")
 TOKEN = bot.bot.token
+print("TOKEN", TOKEN)
 # Heroku server connection
 
 @server.route('/' + TOKEN, methods=['POST'])
@@ -41,14 +42,15 @@ def bot_polling():
     news_sender.language_handler = bot.language_handler
     news_sender.bot = bot.bot
     server.run(host="0.0.0.0",
-               port=int(os.environ.get('PORT', 5000)))
+               port=int(os.environ.get('PORT', 47895)))
 
 
 def main():
-    thread1 = threading.Thread(target=bot_polling)
-    thread2 = threading.Thread(target=send_news)
-    thread1.start()
-    thread2.start()
+    bot_polling()
+    #thread1 = threading.Thread(target=bot_polling)
+    #thread2 = threading.Thread(target=send_news)
+    #thread1.start()
+    #thread2.start()
 
 
 if __name__ == "__main__":
