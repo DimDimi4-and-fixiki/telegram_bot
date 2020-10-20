@@ -9,7 +9,6 @@ DateTime==4.3
 decorator==4.4.2
 defusedxml==0.6.0
 entrypoints==0.3
-enum34==1.1.9
 futures==3.3.0
 graphviz==0.13.2
 idna==2.10
