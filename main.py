@@ -46,11 +46,10 @@ def bot_polling():
 
 
 def main():
-    bot_polling()
-    #thread1 = threading.Thread(target=bot_polling)
-    #thread2 = threading.Thread(target=send_news)
-    #thread1.start()
-    #thread2.start()
+    thread1 = threading.Thread(target=bot_polling)
+    thread2 = threading.Thread(target=send_news)
+    thread1.start()
+    thread2.start()
 
 
 if __name__ == "__main__":
