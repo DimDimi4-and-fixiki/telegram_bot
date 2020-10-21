@@ -22,6 +22,7 @@ class NewsSender(object):
         while True:
             self.send_news_every_day()
             time.sleep(self.sleep_interval)
+            print(self.get_current_time())
 
     def send_news_every_day(self):
         """
