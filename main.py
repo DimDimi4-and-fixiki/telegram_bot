@@ -2,6 +2,7 @@ from my_tele_bot import MyTeleBot
 import threading
 from news_sender import NewsSender
 from flask import Flask, request
+from post_requests import PostRequestMaker
 import os
 import telebot
 
@@ -15,6 +16,7 @@ news_sender = NewsSender()  # NewsSender object
 server = Flask(__name__)
 bot = MyTeleBot(token_path="secure_codes/token.txt")
 TOKEN = bot.bot.token
+HEROKU_APP_URL = "https://evening-mountain-99390.herokuapp.com/"
 print("TOKEN", TOKEN)
 # Heroku server connection
 
@@ -28,11 +30,22 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.bot.remove_webhook()
-    bot.bot.set_webhook(url="https://evening-mountain-99390.herokuapp.com/" + TOKEN)
+    bot.bot.set_webhook(url=HEROKU_APP_URL + TOKEN)
     return "!", 200
 
+
 def send_news():
+    """
+    Starts polling news to the users
+    """
     news_sender.send_news()
+
+
+def send_post_requests():
+    """
+    Sends POST requests in time to awake the app
+    """
+    post_request_maker = PostRequestMaker(url=HEROKU_APP_URL + TOKEN)
 
 
 def bot_polling():
@@ -48,8 +61,10 @@ def bot_polling():
 def main():
     thread1 = threading.Thread(target=bot_polling)
     thread2 = threading.Thread(target=send_news)
+    thread3 = threading.Thread(target=send_post_requests)
     thread1.start()
     thread2.start()
+    thread3.start()
 
 
 if __name__ == "__main__":
