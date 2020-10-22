@@ -12,7 +12,7 @@ class PostRequestMaker(object):
             interval: int   interval to wait in seconds
             url:      str   url to send POST request
         """
-        self.interval = kwargs.get("interval")
+        self.interval = kwargs.get("interval", 600)
         self.url = kwargs.get("url")
         self.make_request_on_interval()
 
@@ -23,5 +23,7 @@ class PostRequestMaker(object):
 
     def make_request(self):
         my_data = {}
+        print("REQUEST IS MADE")
         res = requests.post(url=self.url, data=my_data)
+
 
