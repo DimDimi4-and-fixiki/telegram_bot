@@ -46,7 +46,7 @@ def send_post_requests():
     Sends POST requests in time to awake the app
     """
     post_request_maker = PostRequestMaker(url=HEROKU_APP_URL + TOKEN,
-                                          interval=10)
+                                          interval=300)
 
 
 def bot_polling():
