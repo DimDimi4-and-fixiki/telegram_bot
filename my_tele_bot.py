@@ -408,7 +408,7 @@ class MyTeleBot(object):
             handler for topic selection
             :param message:  message from the user
             """
-            topic = str(message.text)
+            topic = str(get_topic_name(topic=message.text))
             telegram_id = get_user_telegram_id(message)  # user telegram id
             language = data_base_handler.get_user_language(telegram_id=telegram_id)
 
@@ -823,7 +823,6 @@ class MyTeleBot(object):
                     self.bot.send_message(chat_id, translated_message,
                                           reply_markup=markup)
 
-
         def show_basic_keyboard(message, text, **k):
             #self.bot.send_message(message.chat.id, "", reply_markup=self.markup_hider)
             lang = k.get("language", "English")
@@ -837,6 +836,11 @@ class MyTeleBot(object):
                 basic_markup = get_custom_keyboard(items=self.russian_basic_markup_buttons,
                                                    basic=True)
             self.bot.send_message(message.chat.id, str(text), reply_markup=basic_markup)
+
+        def get_topic_name(topic):
+            words = topic.split("  ")
+            return words[0]
+
 
     def get_token(self):
         """

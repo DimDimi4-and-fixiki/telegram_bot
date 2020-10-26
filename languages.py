@@ -61,6 +61,8 @@ class LanguageHandler(object):
             "Объединенное королевство": "Великобритания",
             "Germany": "Германия",
             "Canada": "Канада",
+            "Girls with a bob cut": "Девочки с каре",
+
 
         }
 
@@ -77,6 +79,7 @@ class LanguageHandler(object):
             "Объединенное королевство": "United Kingdom",
             "Германия": "Germany",
             "Канада": "Canada",
+            "Девочки с каре": "Girls with a bob cut",
         }
 
     def translate(self, message, **kwargs):
