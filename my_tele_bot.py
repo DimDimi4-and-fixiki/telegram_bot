@@ -257,6 +257,10 @@ class MyTeleBot(object):
             telegram_id = get_user_telegram_id(message)
             self.send_news_to_user(telegram_id=telegram_id, chat_id=message.chat.id)
 
+        @self.bot.message_handler(commands=["basic"])
+        def basic(message):
+            show_basic_keyboard(message, text="LUL", language="Russian")
+
         @self.bot.message_handler(commands=["delete_topics"])
         def delete_topics(message):
             """
@@ -685,13 +689,24 @@ class MyTeleBot(object):
             telegram_id = message.from_user.id  # gets telegram id
             return telegram_id
 
-        def get_custom_keyboard(items, **k):
+        def get_custom_keyboard(items, basic=False, **k):
             """
             makes custom keyboard with specified items
             :param items: list
             :return: ReplyKeyboardMarkup object
             """
+            is_basic_layout = basic
             markup = types.ReplyKeyboardMarkup(**k)
+            if is_basic_layout:
+                n = len(items)
+                NUM_OF_COLUMNS = 2
+                for i in range(0, n, NUM_OF_COLUMNS):
+                    cur_items = []
+                    for j in range(NUM_OF_COLUMNS):
+                        if i + j < n:
+                            cur_items.append(items[i + j])
+                    markup.row(*cur_items)
+                return markup
             for item in items:
                 markup.add(str(item))
             return markup
@@ -784,7 +799,8 @@ class MyTeleBot(object):
                 text = self.language_handler.translate(text,
                                                        first_language="English",
                                                        second_language="Russian")
-                basic_markup = get_custom_keyboard(items=self.russian_basic_markup_buttons)
+                basic_markup = get_custom_keyboard(items=self.russian_basic_markup_buttons,
+                                                   basic=True)
             self.bot.send_message(message.chat.id, str(text), reply_markup=basic_markup)
 
     def get_token(self):
