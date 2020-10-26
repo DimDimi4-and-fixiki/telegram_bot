@@ -143,9 +143,10 @@ class MyTeleBot(object):
             choose_country_message_rus = "Выберите страну, из которой Вы хотите получать новости:"
             markup = get_custom_keyboard(items=self.countries,
                                          one_time_keyboard=True,
-                                         )  # markup for reply
+                                         basic=True)  # markup for reply
             markup_rus = get_custom_keyboard(items=self.countries_rus,
-                                             one_time_keyboard=True)  # markup in Russian
+                                             one_time_keyboard=True,
+                                             basic=True)  # markup in Russian
             if user_language == "English":  # user uses English
                 self.bot.send_message(message.chat.id, choose_country_message,
                                       reply_markup=markup)  # sends choose country message
@@ -166,7 +167,8 @@ class MyTeleBot(object):
             user_language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
 
             markup = get_custom_keyboard(items=number_of_articles,
-                                         one_time_keyboard=True)
+                                         one_time_keyboard=True,
+                                         basic=True)
             if user_language == "English":
                 self.bot.send_message(message.chat.id,
                                       select_num_of_articles_message,
@@ -236,7 +238,8 @@ class MyTeleBot(object):
             language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
             select_topic_message = "Select topics you want to get news on:"
             topics_markup = get_custom_keyboard(items=self.topics,
-                                                one_time_keyboard=True)  # topics markup
+                                                one_time_keyboard=True,
+                                                basic=True)  # topics markup
             markup_items = self.topics  # items to make a markup
             if language == "Russian":
                 markup_items = self.topics_rus
@@ -250,7 +253,8 @@ class MyTeleBot(object):
                     markup_items = self.topics_ok
                 self.bot.send_message(message.chat.id, select_topic_message,
                                       reply_markup=get_custom_keyboard(
-                                          items=markup_items))
+                                      items=markup_items,
+                                      basic=True))
 
         @self.bot.message_handler(commands=["lul"])
         def lul(message):
@@ -276,9 +280,11 @@ class MyTeleBot(object):
                 no_topics_message = "You have no topics. Add some)"
                 no_topics_message_rus = "Вы еще не добавили темы. Добавьте несколько):"
                 topics_markup = get_custom_keyboard(items=self.topics,
-                                                    one_time_keyboard=True)
+                                                    one_time_keyboard=True,
+                                                    basic=True)
                 topics_markup_rus = get_custom_keyboard(items=self.topics_rus,
-                                                        one_time_keyboard=True)
+                                                        one_time_keyboard=True,
+                                                        basic=True)
                 if user_language == "English":
                     self.bot.send_message(message.chat.id, no_topics_message,
                                           reply_markup=topics_markup)
@@ -784,7 +790,7 @@ class MyTeleBot(object):
                 if not markup_items:
                     self.bot.send_message(chat_id, translated_message)
                 else:
-                    markup = get_custom_keyboard(items=markup_items)
+                    markup = get_custom_keyboard(items=markup_items, basic=True)
                     self.bot.send_message(chat_id, translated_message,
                                           reply_markup=markup)
 
@@ -794,7 +800,7 @@ class MyTeleBot(object):
             lang = k.get("language", "English")
             telegram_id = get_user_telegram_id(message)
             user_language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
-            basic_markup = get_custom_keyboard(items=self.basic_markup_buttons)
+            basic_markup = get_custom_keyboard(items=self.basic_markup_buttons, basic=True)
             if user_language == "Russian":
                 text = self.language_handler.translate(text,
                                                        first_language="English",
