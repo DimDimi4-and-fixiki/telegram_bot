@@ -357,6 +357,7 @@ class MyTeleBot(object):
             delete_topics_message_received(message)
             select_country_message_received(message)
             check_swearing_word(message)
+            check_apologies(message)
 
         def country_name_selected(message):
             """
