@@ -303,10 +303,10 @@ class MyTeleBot(object):
 
                 if user_language == "English":
                     self.bot.send_message(message.chat.id, select_topic_message,
-                                          reply_markup=get_custom_keyboard(items=topics_list))
+                                          reply_markup=get_custom_keyboard(items=topics_list, basic=True))
                 if user_language == "Russian":
                     self.bot.send_message(message.chat.id, select_topic_message_rus,
-                                          reply_markup=get_custom_keyboard(items=topics_list))
+                                          reply_markup=get_custom_keyboard(items=topics_list, basic=True))
 
 
                 """
