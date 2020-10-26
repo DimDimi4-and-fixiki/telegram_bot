@@ -54,13 +54,16 @@ class MyTeleBot(object):
             "Germany": "gr",
             "Canada": "ca",
         }
-        self.basic_markup_buttons = ["Add topics", "Change news time",
-                                     "Select country", "Delete topics",
-                                     "Change number of articles", "Change language"
-                                     ]  # buttons on a basic keyboard
-        self.russian_basic_markup_buttons = ["Добавить темы", "Поменять время отправки новостей",
-                                             "Выбрать страну", "Удалить темы", "Изменить число статей",
-                                             "Поменять язык", ]
+        self.basic_markup_buttons = ["Add topics  " + u'\U00002795', "Change news time  " + u'\U000023F1',
+                                     "Select country  " + u'\U0001F3F3', "Delete topics  " + u'\U00002716',
+                                     "Change number of articles  " + u'\U0001F522', "Change language  " + u'\U0001F5E3']  # buttons with emojies on a basic keyboard
+        self.russian_basic_markup_buttons = ["Добавить темы  " + u'\U00002795',
+                                             "Поменять время отправки новостей  " + u'\U000023F1',
+                                             "Выбрать страну  " + u'\U0001F3F3',
+                                             "Удалить темы  " + u'\U00002716',
+                                             "Изменить число статей  " + u'\U0001F3F3',
+                                             "Поменять язык  " + u'\U00002716',
+                                             ]
         self.basic_markup = None
         self.topics = ["Business", "Entertainment",
                        "Health", "Science", "Sports",
@@ -316,7 +319,8 @@ class MyTeleBot(object):
 
         def change_language(message):
             text = str(message.text)
-            if text == "Change language" or text == "Поменять язык":
+            if text == "Change language  " + u'\U0001F5E3'\
+                    or text == "Поменять язык  " + u'\U0001F5E3':
                 select_language(message)
 
         @self.bot.message_handler(content_types=["text"])
@@ -627,7 +631,7 @@ class MyTeleBot(object):
             """
             text = str(message.text)
             telegram_id = get_user_telegram_id(message)
-            if text == "Add topics" or text == "Добавить темы":
+            if text == "Add topics  " + u'\U00002795' or text == "Добавить темы  " + u'\U00002795':
                 select_topics(message)
 
         def select_time_message_received(message):
@@ -636,12 +640,14 @@ class MyTeleBot(object):
             :param message: message object from the user
             """
             text = str(message.text)
-            if text == "Change news time" or text == "Поменять время отправки новостей":
+            if text == "Change news time  " + u'\U000023F1' or \
+                    text == "Поменять время отправки новостей  " + u'\U000023F1':
                 select_part_of_day(message)
 
         def select_country_message_received(message):
             text = str(message.text)
-            if text == "Select country" or text == "Выбрать страну":
+            if text == "Select country  " + u'\U0001F3F3' or \
+                    text == "Выбрать страну  " + u'\U0001F3F3':
                 select_country(message)
 
         def change_num_of_articles_message_received(message):
@@ -651,12 +657,13 @@ class MyTeleBot(object):
             :return:
             """
             text = str(message.text)
-            if text == "Change number of articles" or text == "Изменить число статей":
+            if text == "Change number of articles  " + u'\U0001F522' \
+                    or text == "Изменить число статей " + u'\U0001F522':
                 select_num_of_articles(message)
 
         def delete_topics_message_received(message):
             text = str(message.text)
-            if text == "Delete topics" or text == "Удалить темы":
+            if text == "Delete topics  " + u'\U00002716' or text == "Удалить темы  " + u'\U00002716':
                 delete_topics(message)
 
 
