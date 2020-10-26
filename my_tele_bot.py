@@ -409,6 +409,7 @@ class MyTeleBot(object):
             :param message:  message from the user
             """
             topic = str(get_topic_name(topic=message.text))
+            print("TOPIC: ", topic)
             telegram_id = get_user_telegram_id(message)  # user telegram id
             language = data_base_handler.get_user_language(telegram_id=telegram_id)
 
