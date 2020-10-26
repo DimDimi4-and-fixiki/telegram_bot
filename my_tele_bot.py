@@ -743,7 +743,7 @@ class MyTeleBot(object):
             """
             checks if the user enters a swearing word
             """
-            words = str(message.text).lower().split("  ")[0].split[" "]
+            words = str(message.text).lower().split("  ")[0].split(" ")
             for word in words:
                 if word in swearing_words_rus:  # swearing word in Russian
                     print(word)
