@@ -739,8 +739,9 @@ class MyTeleBot(object):
             """
             word = str(message.text).lower()
             if word in swearing_words_rus:  # swearing word in Russian
+                print("Swearing word!")
                 markup = get_custom_keyboard(items="Извините, пожалуйста")
-                self.bot.send_message(message.chat_id, "Ты сказал некультурное слово!\nИзвинись",
+                self.bot.send_message(message.chat.id, "Ты сказал некультурное слово!\nИзвинись",
                                       reply_markup=markup)
 
 
