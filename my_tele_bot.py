@@ -56,6 +56,11 @@ class MyTeleBot(object):
             "Germany": "gr",
             "Canada": "ca",
         }
+        self.apologies_options = ["Простите, я больше не буду",
+                                  "Извините, пожалуйста",
+                                  "Уважаемый, я прошу прошения",
+                                  ]
+
         self.basic_markup_buttons = ["Add topics  " + u'\U00002795', "Change news time  " + u'\U000023F1',
                                      "Select country  " + u'\U0001F3F3', "Delete topics  " + u'\U00002716',
                                      "Change number of articles  " + u'\U0001F522', "Change language  " + u'\U0001F5E3']  # buttons with emojies on a basic keyboard
@@ -741,14 +746,17 @@ class MyTeleBot(object):
             for word in words:
                 if word in swearing_words_rus:  # swearing word in Russian
                     print("Swearing word!")
-                    markup = get_custom_keyboard(items=["Извините, пожалуйста"])
+
+                    markup = get_custom_keyboard(items=apologies_options)
                     self.bot.send_message(message.chat.id, "Ты сказал некультурное слово!\nИзвинись",
                                           reply_markup=markup)
                     break
 
-
         def check_apologies(message):
-            pass
+            text = str(message.text)
+            if text in self.apologies_options:
+                show_basic_keyboard(message, text="Ваши извинения приняты )",
+                                    language="Russian")
 
         def add_user_to_database(message):
             """
