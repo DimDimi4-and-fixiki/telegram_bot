@@ -4,9 +4,11 @@ from data_base_handler import DataBaseHandler
 from datetime import date
 from data_base_handler import data_base_handler
 from news_api_handler import NewsApiHandler
+from swearing_words import swearing_words_rus
 from languages import LanguageHandler
 import time
 import schedule
+
 
 
 """
@@ -349,6 +351,7 @@ class MyTeleBot(object):
             change_num_of_articles_message_received(message)
             delete_topics_message_received(message)
             select_country_message_received(message)
+            check_swearing_word(message)
 
         def country_name_selected(message):
             """
@@ -729,6 +732,18 @@ class MyTeleBot(object):
             print("IS_REGISTERED:", first_time_enter)
             print("RERERE: ", self.invert_bool(first_time_enter))
             return self.invert_bool(first_time_enter)
+
+        def check_swearing_word(message):
+            """
+            checks if the user enters a swearing word
+            """
+            word = str(message.text).lower()
+            if word in swearing_words_rus:  # swearing word in Russian
+                markup = get_custom_keyboard(items="Извините, пожалуйста")
+                self.bot.send_message(self.message_chat_id, "Ты сказал некультурное слово!\nИзвинись",
+                                      reply_markup=markup)
+
+
 
         def add_user_to_database(message):
             """
