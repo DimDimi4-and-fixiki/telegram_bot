@@ -77,7 +77,7 @@ class MyTeleBot(object):
                        "Technology", "Girls with a bob cut  " + u'\U0001F469']  # topics to choose from
         self.topics_rus = ["Бизнес", "Развлечения",
                            "Здоровье", "Наука",
-                           "Спорт", "Технологии", "Девочки с каре " + u'\U0001F469']
+                           "Спорт", "Технологии", "Девочки с каре  " + u'\U0001F469']
         self.delete_topics = ["-Business", "-Entertainment",
                               "-Health", "-Science", "-Sports",
                               "-Technology"]
