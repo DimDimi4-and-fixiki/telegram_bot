@@ -321,7 +321,10 @@ class MyTeleBot(object):
                                                                     first_language="English",
                                                                     second_language="Russian")
                         topics_list.append("- " + topic_rus)
-
+                if user_language == "English":
+                    topics_list.append("-Cancel")
+                if user_language == "Russian":
+                    topics_list.append("-Отмена")
                 if user_language == "English":
                     self.bot.send_message(message.chat.id, select_topic_message,
                                           reply_markup=get_custom_keyboard(items=topics_list, basic=True))
@@ -366,6 +369,7 @@ class MyTeleBot(object):
             select_country_message_received(message)
             check_swearing_word(message)
             check_apologies(message)
+            cancel_delete_check(message)
 
         def country_name_selected(message):
             """
@@ -766,6 +770,16 @@ class MyTeleBot(object):
             if text in self.apologies_options:
                 show_basic_keyboard(message, text="Ваши извинения приняты )",
                                     language="Russian")
+
+        def cancel_delete_check(message):
+            text = str(message.text)
+            telegram_id = get_user_telegram_id(message)
+            user_language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
+            if text == "-Отмена" or text == "-Cancel":
+                if user_language == "Russian":
+                    show_basic_keyboard(message, text="Хорошо, я не буду удалять темы")
+                if user_language == "English":
+                    show_basic_keyboard(message, text="OK. I will not delete topics")
 
         def add_user_to_database(message):
             """
