@@ -75,9 +75,17 @@ class MyTeleBot(object):
         self.topics = ["Business", "Entertainment",
                        "Health", "Science", "Sports",
                        "Technology", "Girls with a bob cut  " + u'\U0001F469']  # topics to choose from
+        self.all_topics = ["Business", "Entertainment",
+                           "Health", "Science", "Sports",
+                           "Technology", "Girls with a bob cut  " + u'\U0001F469',
+                           "Girls with a bob cut"]
         self.topics_rus = ["Бизнес", "Развлечения",
                            "Здоровье", "Наука",
                            "Спорт", "Технологии", "Девочки с каре  " + u'\U0001F469']
+        self.all_topics_rus = ["Бизнес", "Развлечения",
+                               "Здоровье", "Наука",
+                               "Спорт", "Технологии", "Девочки с каре  " + u'\U0001F469',
+                               "Девочки с каре"]
         self.delete_topics = ["-Business", "-Entertainment",
                               "-Health", "-Science", "-Sports",
                               "-Technology"]
@@ -413,7 +421,7 @@ class MyTeleBot(object):
             telegram_id = get_user_telegram_id(message)  # user telegram id
             language = data_base_handler.get_user_language(telegram_id=telegram_id)
 
-            if topic != "OK" and (topic in self.topics or topic in self.topics_rus):
+            if topic != "OK" and (topic in self.all_topics or topic in self.all_topics_rus):
                 print("TOPICS: ", self.topics)
                 topic_selected_message = "Alright, " + topic + " is added to your topics"
                 topic_is_used_message = "You already have " + topic + " in your topics"
