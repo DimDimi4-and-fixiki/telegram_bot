@@ -435,7 +435,7 @@ class MyTeleBot(object):
                                              "\" добавлена в ваши темы"
                 topic_is_used_message_rus = "Тема \'" + topic + "\' уже была добавлена в Ваши темы"
                 # makes a request to the database and returns the result:
-                if topic in self.topics_rus:
+                if topic in self.topics_rus or topic in self.all_topics_rus:
                     topic_eng = self.language_handler.translate(topic,
                                                                 first_language="rus",
                                                                 second_language="eng")
