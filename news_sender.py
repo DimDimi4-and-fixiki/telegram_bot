@@ -1,6 +1,8 @@
 import schedule
 import time
 from datetime import datetime
+from girls_links import girls_links
+from random import randint
 
 
 class NewsSender(object):
@@ -94,20 +96,41 @@ class NewsSender(object):
         user_num_of_articles = self.data_base_handler.get_user_num_of_articles(telegram_id=telegram_id)
         for topic in user_topics:
 
-            news = self.news_api_handler.get_news(topic=topic,
-                                                  country=user_country,
-                                                  num_of_articles=user_num_of_articles)
-            topic_message = ""
-            if user_language == "English":
-                topic_message = "Your news on topic \'" + topic + "\'"
+            if topic != "Girls with a bob cut":  # usual articles
+                news = self.news_api_handler.get_news(topic=topic,
+                                                      country=user_country,
+                                                      num_of_articles=user_num_of_articles)
+                topic_message = ""
+                if user_language == "English":
+                    topic_message = "Your news on topic \'" + topic + "\'"
 
-            if user_language == "Russian":
-                topic_rus = self.language_handler.translate(topic,
-                                                            first_language="English",
-                                                            second_language="Russian")
-                topic_message = "Ваши новости на тему \'" + topic_rus + "\'"
-            self.bot.send_message(chat_id, topic_message)
-            self.send_articles(news=news, telegram_id=telegram_id, chat_id=chat_id)
+                if user_language == "Russian":
+                    topic_rus = self.language_handler.translate(topic,
+                                                                first_language="English",
+                                                                second_language="Russian")
+                    topic_message = "Ваши новости на тему \'" + topic_rus + "\'"
+                self.bot.send_message(chat_id, topic_message)
+                self.send_articles(news=news, telegram_id=telegram_id, chat_id=chat_id)
+
+            if topic == "Girls with a bob cut":  # girls articles
+                n = len(girls_links)
+                link_nums = []
+                for i in range(1000):
+                    link_num = randint(0, n - 1)
+                    if link_num not in link_nums:
+                        link_nums.append(link_num)
+                        if len(link_nums) == user_num_of_articles:
+                            break
+                girls_message = "Photos of girls with a bob cut  " + u'\U0001F469'
+                girls_message_rus = "Фоточки девочек с каре  " + u'\U0001F469'
+                self.bot.send_message(chat_id, girls_message)
+                for num in link_nums:
+                    self.bot.send_photo(chat_id, photo=girls_links[num])
+
+
+
+
+
 
     def send_articles(self, news, **kwargs):
         """
