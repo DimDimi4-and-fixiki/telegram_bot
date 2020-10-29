@@ -4,6 +4,7 @@ from data_base_handler import DataBaseHandler
 from datetime import date
 from data_base_handler import data_base_handler
 from news_api_handler import NewsApiHandler
+from news_sender import NewsSender
 from swearing_words import swearing_words_rus
 from languages import LanguageHandler
 import time
@@ -48,6 +49,11 @@ class MyTeleBot(object):
         self.news_api_handler = NewsApiHandler(path="secure_codes/newsapi.txt")
         self.language_handler = LanguageHandler()
         self.markup_hider = types.ReplyKeyboardRemove()
+        self.news_sender = NewsSender(bot=self.bot,
+                                      language_handler=self.language_handler,
+                                      news_api_handler=self.news_api_handler,
+                                      data_base_handler=self.data_base_handler)
+
         self.country_name_to_short_name = {  # dictionary with countries short names
             "Russia": "ru",
             "United States": "us",
@@ -201,7 +207,7 @@ class MyTeleBot(object):
             user_country = self.data_base_handler.get_user_country(telegram_id=telegram_id)
             user_language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
             user_num_of_articles = self.data_base_handler.get_user_num_of_articles(telegram_id=telegram_id)
-            self.news_api_handler.send_news_to_user(chat_id=message.chat.id,
+            self.news_sender.send_news_to_user(chat_id=message.chat.id,
                                                     telegram_id=telegram_id)
 
         @self.bot.message_handler(commands=["select_time"])
