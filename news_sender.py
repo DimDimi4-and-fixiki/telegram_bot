@@ -120,7 +120,7 @@ class NewsSender(object):
                 girls_message_rus = "Фоточки девочек с каре  " + u'\U0001F469'
                 self.bot.send_message(chat_id, girls_message_rus)
                 for num in range(int(user_num_of_articles)):
-                    self.bot.send_photo(photo=links[num])
+                    self.bot.send_photo(chat_id, photo=links[num])
 
 
 
