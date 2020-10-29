@@ -24,14 +24,12 @@ class NewsSender(object):
         while True:
             self.send_news_every_day()
             time.sleep(self.sleep_interval)
-            print(self.get_current_time())
 
     def send_news_every_day(self):
         """
         Send news if the time has come
         """
         cur_time = self.get_current_time()
-        print(cur_time)
         times = ["00:00", "01:00", "02:00",
                  "03:00", "04:00", "05:00",
                  "06:00", "07:00", "08:00",
@@ -113,14 +111,17 @@ class NewsSender(object):
                 self.send_articles(news=news, telegram_id=telegram_id, chat_id=chat_id)
 
             if topic == "Girls with a bob cut":  # girls articles
+                print("NUM OF ARTICLES: ", user_num_of_articles)
                 n = len(girls_links)
                 link_nums = []
                 for i in range(1000):
                     link_num = randint(0, n - 1)
+                    print(len(link_nums))
+                    if len(link_nums) == user_num_of_articles:
+                        break
                     if link_num not in link_nums:
                         link_nums.append(link_num)
-                        if len(link_nums) == user_num_of_articles:
-                            break
+
                 girls_message = "Photos of girls with a bob cut  " + u'\U0001F469'
                 girls_message_rus = "Фоточки девочек с каре  " + u'\U0001F469'
                 self.bot.send_message(chat_id, girls_message)
