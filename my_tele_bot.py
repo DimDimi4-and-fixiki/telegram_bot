@@ -201,23 +201,8 @@ class MyTeleBot(object):
             user_country = self.data_base_handler.get_user_country(telegram_id=telegram_id)
             user_language = self.data_base_handler.get_user_language(telegram_id=telegram_id)
             user_num_of_articles = self.data_base_handler.get_user_num_of_articles(telegram_id=telegram_id)
-            for topic in user_topics:
-
-                news = self.news_api_handler.get_news(topic=topic,
-                                                      country=user_country,
-                                                      num_of_articles=user_num_of_articles)
-                topic_message = ""
-                if user_language == "English":
-                    topic_message = "Your news on topic \'" + topic + "\'"
-
-                if user_language == "Russian":
-                    topic_rus = self.language_handler.translate(topic,
-                                                                first_language="English",
-                                                                second_language="Russian")
-                    topic_message = "Ваши новости на тему \'" + topic_rus + "\'"
-                self.bot.send_message(message.chat.id, topic_message)
-                news_to_text(message, news)
-
+            self.news_api_handler.send_news_to_user(chat_id=message.chat.id,
+                                                    telegram_id=telegram_id)
 
         @self.bot.message_handler(commands=["select_time"])
         def select_part_of_day(message):
