@@ -1,3 +1,7 @@
 news_bot_d.sqbpro
 news_bot_db
 news_bot_db.sqbpro
+Procfile
+requirements.txt
+secure_codes/newsapi.txt
+secure_codes/token.txt
