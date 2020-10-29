@@ -1,4 +1,5 @@
 Procfile
 requirements.txt
 secure_codes/newsapi.txt
-secure_codes/token.txt*.sqlite3
+secure_codes/token.txt
+news_bot_db
