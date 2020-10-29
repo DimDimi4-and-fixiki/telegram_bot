@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 from girls_links import girls_links
 from random import randint
+import random
 
 
 class NewsSender(object):
@@ -113,21 +114,13 @@ class NewsSender(object):
             if topic == "Girls with a bob cut":  # girls articles
                 print("NUM OF ARTICLES: ", user_num_of_articles)
                 n = len(girls_links)
-                link_nums = []
-                for i in range(1000):
-                    link_num = randint(0, n - 1)
-                    print(len(link_nums))
-                    if len(link_nums) == user_num_of_articles:
-                        break
-                    if link_num not in link_nums:
-                        link_nums.append(link_num)
+                links = random.sample(girls_links, user_num_of_articles)
 
                 girls_message = "Photos of girls with a bob cut  " + u'\U0001F469'
                 girls_message_rus = "Фоточки девочек с каре  " + u'\U0001F469'
                 self.bot.send_message(chat_id, girls_message_rus)
-                for num in link_nums:
-                    self.bot.send_photo(chat_id, photo=girls_links[num])
-
+                for num in range(user_num_of_articles):
+                    self.bot.send_photo(photo=links[num])
 
 
 
