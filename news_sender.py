@@ -114,13 +114,13 @@ class NewsSender(object):
             if topic == "Girls with a bob cut":  # girls articles
                 print("NUM OF ARTICLES: ", user_num_of_articles)
                 n = len(girls_links)
-                links = random.sample(girls_links, user_num_of_articles)
+                links = random.sample(girls_links, int(user_num_of_articles))
 
                 girls_message = "Photos of girls with a bob cut  " + u'\U0001F469'
                 girls_message_rus = "Фоточки девочек с каре  " + u'\U0001F469'
-                #self.bot.send_message(chat_id, girls_message_rus)
-                #for num in range(user_num_of_articles):
-                  #  self.bot.send_photo(photo=links[num])
+                self.bot.send_message(chat_id, girls_message_rus)
+                for num in range(user_num_of_articles):
+                    self.bot.send_photo(photo=links[num])
 
 
 
